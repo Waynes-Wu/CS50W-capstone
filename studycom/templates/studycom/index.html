@@ -1,0 +1,173 @@
+{% extends 'studycom/layout.html'%}
+{% load static %}
+
+{% block navbrand%}
+Study Companion
+{% endblock %}
+
+
+{% block title%}
+Home
+{% endblock %}
+
+
+{% block body %}
+<script src="{% static 'studycom/index.js' %}"></script>
+
+<div class="modal" tabindex="-1" id="listModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Reminders/To-Do</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ul id="tasksList">
+                    <li>
+                        <input type="text" class="inputTasks">
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="deleteAllList">Delete all</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row justify-content-between">
+        <div class="col-5 col-lg-4">
+            {% if user.is_authenticated %}
+            Logged in as <span class="font-weight-bold"><b>{{request.user}}</b></span>
+            {% endif %}
+        </div>
+
+        <div class="col-6 col-lg-7">
+            studied: {{last_studied}} days ago
+        </div>
+
+        <div class="col-1">
+            <i class="fas fa-plus"></i>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="shadow alert alert-success text-center" role="alert">
+            <b>
+                Goal: &nbsp;
+            </b>
+            <span id="goal">
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <h5 class=" mt-4">Quick Actions</h5>
+    <div class="row">
+    </div>
+
+    <div class="row justify-content-around">
+        <!-- Button trigger modal -->
+        <button type="button" class="col-4 col-lg-3 btn btn-primary" id="startstudy" data-bs-toggle="modal"
+            data-bs-target="#startStudyModalReminder">
+            Start studying!
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="startStudyModalReminder" data-bs-backdrop="static" data-bs-keyboard="false"
+            tabindex="-1" aria-labelledby="startStudyModalReminderLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="startStudyModalReminderLabel">Reminders!</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="putSomethingHere" data-page="0">
+                            <ol>
+                                <li>Remove all distractions</li>
+                                <li>List down or write down all the thoughts or tasks you need to get finish by pressing
+                                    the
+                                    plus symbol (top right corner)</li>
+                                <li>Be sure you are ready before you start, just sit for 20 minutes if you do not feel
+                                    like studying</li>
+                                <li>Prepare all the study materials beforehand</li>
+                                <li>Sit comfortably</li>
+                            </ol>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" id="startStudyModalReminderButton"
+                            class="btn btn-primary continue">Continue</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="col-4 col-lg-3 btn btn-primary" id="flashcard">Flashcards</button>
+    </div>
+
+    <hr class="m-4">
+
+    <h5 class="mt-4">Recent Activites</h5>
+    <table class="table table-info table-striped table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Duration</th>
+                <th scope="col">Improvement</th>
+                <th scope="col">Consistency</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in history %}
+            <tr>
+                <td>{{i.date}}</td>
+                <td>{{i.duration}}</td>
+                <td>--</td>
+                <td>--</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td>go</td>
+                <td>do</td>
+                <td>some</td>
+                <td>thing</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

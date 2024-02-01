@@ -1,0 +1,13 @@
+.abcd{
+    float:right;
+}
+.inputTasks{
+    width: 100%;
+    outline: none;
+    border: none;
+    border-bottom: black 1px solid;
+}
+.inputTasks:focus{
+    outline: none;
+    border-bottom: black 1px solid;
+} 

@@ -1,0 +1,53 @@
+{% extends 'studycom/layout.html' %}
+{% load static %}
+
+{% block navbrand %}
+Flashcards
+{% endblock %}
+
+
+{% block title %}
+Flashcards
+{% endblock %}
+
+{% csrf_token %}
+{% block body %}
+<script src="{% static 'studycom/cards.js' %}"></script>
+<div class="container mb-3">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="form-text">We suggest making acronym or something to help you memorize a story, since anki already
+            exist</div>
+        <label for="inp1" class="form-label">Acronym</label>
+        <input type="text" name="acronym" class="form-control">
+
+        <label for="inp1" class="form-label">Definition</label>
+        <textarea name="def" class="form-control mb-2"></textarea>
+
+        <input type="submit" class="btn btn-primary" value="create">
+    </form>
+    <hr>
+</div>
+
+
+<div class="d-flex flex-wrap"></div>
+{% for card in cards %}
+<div class="card w-49">
+    <div class="card-body">
+        <h5 class="card-title">{{card.acronym}}</h5>
+        <p class="invisible definition">{{card.definition}}</p>
+        <p class="card-text">Last reviewed on:
+            <span>
+                {{card.reviewedDate}}
+            </span>
+        </p>
+        <button class="btn btn-primary">check definition</button>
+    </div>
+</div>
+</div>
+{% empty %}
+<p class="text-center">Looks like you don't have any, create one now using the forms above!</p>
+{% endfor %}
+
+
+{% endblock %}

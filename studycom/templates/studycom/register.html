@@ -1,0 +1,38 @@
+{% extends 'studycom/layout.html'%}
+
+
+{% block navbrand %}
+Register
+{% endblock %}
+
+
+{% block title %}
+Register
+{% endblock %}
+
+
+{% block body %}
+
+
+<form action="{% url 'register' %}" method="POST" class="mb-3">
+    {% csrf_token %}
+
+    {{ error_message }}
+
+    <div class="mb-3">
+        <label for="email" class="form-label">Email address</label>
+        <input name="email" type="email" class="form-control" id="email" placeholder="email@address.com" required>
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input name="password" class="form-control" type="password" id="password" required></input>
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Confirm password</label>
+        <input name="confirm" class="form-control" type="password" id="password" required></input>
+    </div>
+    <input type="submit" value="Register">
+</form>
+
+Already have an account? <a href="{% url 'login' %}">Log In here.</a>
+{% endblock %}
